@@ -48,9 +48,6 @@ app.post('/searches', (req, res) => {
   // Get raw data from API
   api.readAPI(queryString)
     .then(books => {
-
-      console.log(books);
-
       // Pack server data
       const clientBooks = books.map(book => {
         return {
@@ -62,7 +59,9 @@ app.post('/searches', (req, res) => {
       });
 
       // Render data to client
-      res.render('pages/show', clientBooks);
+      res.render('pages/searches/show', {
+        searchResults: clientBooks
+      });
     })
     .catch(err => console.error(err));
 });

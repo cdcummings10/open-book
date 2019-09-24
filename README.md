@@ -85,10 +85,11 @@ Start time: Tue 9/24/19 10:30am
 - Tue 9/24/19
   - 10:30am - 12:00pm
   - 12:30pm - 1:30pm
+  - 2:00pm - 2:30pm
 
-Finish time: XXX
+Finish time: Tue 9/24/19 2:30pm
 
-Actual time needed to complete: XXX
+Actual time needed to complete: 3:00 hours
 
 ### Feature 4
 

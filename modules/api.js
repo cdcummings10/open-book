@@ -14,6 +14,10 @@ const superagent = require('superagent');
 // Get local packages
 const Book = require('./book');
 
+/**
+ * Exports
+ */
+
 function readAPI(queryString) {
   // Set API url
   let url;
@@ -30,7 +34,7 @@ function readAPI(queryString) {
   }
 
   // Get Google Books API raw data
-  superagent.get(url)
+  return superagent.get(url)
     .then(rawData => {
       // Unpack Google Book API raw data
       const items = rawData.body.items;
