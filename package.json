@@ -1,0 +1,25 @@
+{
+  "name": "open-book",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "dependencies": {
+    "ejs": "^2.7.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cdcummings10/open-book.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/cdcummings10/open-book/issues"
+  },
+  "homepage": "https://github.com/cdcummings10/open-book#readme"
+}
