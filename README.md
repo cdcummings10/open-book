@@ -78,9 +78,12 @@ Actual time needed to complete: 30min
 
 Number and name of feature: XXX
 
-Estimate of time needed to complete: XXX
+Estimate of time needed to complete: 1:00 hours
 
-Start time: XXX
+Start time: Tue 9/24/19 10:30am
+
+- Tue 9/24/19
+  - 10:30am -
 
 Finish time: XXX
 

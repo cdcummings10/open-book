@@ -6,7 +6,8 @@ module.exports = Book;
  * Constructor
  */
 
-function Book(name, format) {
-  this.name = name;
-  this.for = format;
+function Book(rawBook) {
+  this.authors = rawBook.volumeInfo.authors || null;
+  this.description = rawBook.volumeInfo.description || null;
+  this.title = rawBook.volumeInfo.title || null;
 }

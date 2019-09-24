@@ -8,6 +8,10 @@
 require('dotenv').config();
 const express = require('express');
 
+// Get local packages
+const Book = require('./modules/book');
+const api = require('./modules/api');
+
 // Set packages
 const app = express();
 
