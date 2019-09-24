@@ -92,14 +92,14 @@ Number and name of feature: Error
 
 Estimate of time needed to complete: 20min
 
-Start time: 11:05
+Start time: 11:05am
 
 - Tue 9/24/19
- - 11:05am - 11:25am
+ - 11:05am - 11:17am
 
-Finish time: XXX
+Finish time: 11:17am
 
-Actual time needed to complete: XXX
+Actual time needed to complete: 12min
 
 ### Feature 5
 

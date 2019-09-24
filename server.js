@@ -21,8 +21,13 @@ const PORT = process.env.PORT || 3001;
  */
 app.set('view engine', 'ejs');
 
-app.get('/hello', (req, res) => {
-  res.send('Hello world');
+//These 2 app.get render index and link the error page 
+app.get('/index', (req, res) => {
+  res.render('pages/index');
+});
+
+app.get('/error', (req, res) => {
+  res.render('pages/error');
 });
 
 /**
