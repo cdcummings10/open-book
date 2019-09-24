@@ -9,24 +9,57 @@ require('dotenv').config();
 const express = require('express');
 
 // Get local packages
-const Book = require('./modules/book');
 const api = require('./modules/api');
 
 // Set packages
 const app = express();
-
+app.set('view engine', 'ejs');
 app.use(express.static('./public'));
+app.use(express.urlencoded({ extended: true }));
 
-// Set locals
 const PORT = process.env.PORT || 3001;
 
 /**
  * Routes
  */
-app.set('view engine', 'ejs');
+
+app.get('/', (req, res) => {
+  res.render('pages/index');
+});
 
 app.get('/hello', (req, res) => {
   res.send('Hello world');
+});
+
+app.post('/searches', (req, res) => {
+  // Unpack client query string data
+  const search = req.body.search[0].split(' ').join('+');
+  const field = req.body.search[1];
+  const queryString = {
+    search: search,
+    field: field
+  };
+
+  // Get raw data from API
+  api.readAPI(queryString)
+    .then(books => {
+
+      console.log(books);
+
+      // Pack server data
+      const clientBooks = books.map(book => {
+        return {
+          author: book.author,
+          image: book.imageLink,
+          summary: book.description,
+          title: book.title
+        };
+      });
+
+      // Render data to client
+      res.render('pages/show', clientBooks);
+    })
+    .catch(err => console.error(err));
 });
 
 /**

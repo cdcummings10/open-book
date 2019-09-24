@@ -83,7 +83,8 @@ Estimate of time needed to complete: 1:00 hours
 Start time: Tue 9/24/19 10:30am
 
 - Tue 9/24/19
-  - 10:30am -
+  - 10:30am - 12:00pm
+  - 12:30pm - 1:30pm
 
 Finish time: XXX
 
