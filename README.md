@@ -46,27 +46,33 @@ Actual time needed to complete: 4:30 hours
 
 ### Feature 1
 
-Number and name of feature: XXX
+Number and name of feature: Initial Scaffold & Functionality
 
-Estimate of time needed to complete: XXX
+Estimate of time needed to complete: 1hr
 
-Start time: XXX
+Start time: Tue 9/24/19 9:30am
 
-Finish time: XXX
+- Tue 9/24/19
+ - 9:30am - 10:30am
 
-Actual time needed to complete: XXX
+Finish time: 10:30am
+
+Actual time needed to complete: 60 min
 
 ### Feature 2
 
-Number and name of feature: XXX
+Number and name of feature: Form 
 
-Estimate of time needed to complete: XXX
+Estimate of time needed to complete: 30min
 
-Start time: XXX
+Start time: 10:30am
 
-Finish time: XXX
+- Tue 9/24/19
+ - 10:30am - 11:00am
 
-Actual time needed to complete: XXX
+Finish time: 11:00am
+
+Actual time needed to complete: 30min
 
 ### Feature 3
 
@@ -82,11 +88,14 @@ Actual time needed to complete: XXX
 
 ### Feature 4
 
-Number and name of feature: XXX
+Number and name of feature: Error
 
-Estimate of time needed to complete: XXX
+Estimate of time needed to complete: 20min
 
-Start time: XXX
+Start time: 11:05
+
+- Tue 9/24/19
+ - 11:05am - 11:25am
 
 Finish time: XXX
 

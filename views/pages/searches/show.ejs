@@ -7,6 +7,17 @@
   <title>Results</title>
 </head>
 <body>
+  <main>
+    <h3>Search Results</h3>
+    <% searchResults.forEach(item => { %>
+    <section>
+      <img src="<%= item.image %>">
+      <h5><%= item.title %></h5>
+      <h6><% item.author %></h6>
+      <p><% item.summary %></p>
+    </section>
+    <% }) %>
+  </main>
   
 </body>
 </html>
