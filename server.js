@@ -27,8 +27,13 @@ app.get('/', (req, res) => {
   res.render('pages/index');
 });
 
-app.get('/hello', (req, res) => {
-  res.send('Hello world');
+//These 2 app.get render index and link the error page 
+app.get('/index', (req, res) => {
+  res.render('pages/index');
+});
+
+app.get('/error', (req, res) => {
+  res.render('pages/error');
 });
 
 app.post('/searches', (req, res) => {
