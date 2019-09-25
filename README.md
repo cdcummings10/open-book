@@ -127,7 +127,7 @@ Actual time needed to complete: XXX
 
 ### Feature 1
 
-Number and name of feature: XXX
+Number and name of feature: View books
 
 Estimate of time needed to complete: XXX
 
@@ -139,11 +139,14 @@ Actual time needed to complete: XXX
 
 ### Feature 2
 
-Number and name of feature: XXX
+Number and name of feature: Book details
 
-Estimate of time needed to complete: XXX
+Estimate of time needed to complete: 1:00 hours
 
-Start time: XXX
+Start time: Wed 9/25/19 9:30am
+
+- Wed 9/25/19
+  - 9:30am - 10:00am
 
 Finish time: XXX
 

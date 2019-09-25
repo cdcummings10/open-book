@@ -30,6 +30,9 @@ const PORT = process.env.PORT || 3001;
  */
 
 app.get('/', (req, res) => {
+  // 1. Get books from database.
+  // 2. Render books to page.
+
   let sql = 'SELECT * FROM books;'
   client.query(sql)
     .then(sqlResults => {
@@ -37,11 +40,14 @@ app.get('/', (req, res) => {
       res.render('pages/index', {storedBooks: sqlResults.rows});
     })
     .catch(err => console.log(err))
+
+  // res.render('pages/index');
 });
 
-//These 2 app.get render index and link the error page 
-app.get('/index', (req, res) => {
-  res.render('pages/index');
+app.get('/books/:id', (req, res) => {
+  // 1. Unpack client query string data.
+  // 2. Read database for book by id.
+  // 3. Render book.
 });
 
 app.get('/error', (req, res) => {
@@ -61,6 +67,7 @@ app.get('/books/:books_id', (req, res)=> {
     })
     .catch(err => console.log(err));
 })
+
 app.post('/searches', (req, res) => {
   // Unpack client query string data
   const search = req.body.search[0].split(' ').join('+');
