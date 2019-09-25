@@ -103,11 +103,16 @@ Actual time needed to complete: 12min
 
 ### Feature 5
 
-Number and name of feature: XXX
+Number and name of feature: CSS stuff
 
-Estimate of time needed to complete: XXX
+Estimate of time needed to complete: 2:30 hrs
 
-Start time: XXX
+Start time: 11:20am
+
+- Tue 9/24/19
+ - 11:20am - 12:00pm
+ - 12:45pm - 1:40pm
+ - 7:00pm - 8:00pm
 
 Finish time: XXX
 
