@@ -1,0 +1,36 @@
+h1, h2, h3, h4, h5, h6{
+  font-family: 'Nunito', sans-serif;
+}
+
+header{
+  background-color: black;
+}
+
+h1{
+  font-size: 3em;
+  color: white;
+}
+
+h3{
+  font-size: 25px;
+  background-color: gray;
+  color: white;
+
+}
+
+h5{
+  font-size: 25px;
+}
+
+h6{
+  font-size: 18px;
+}
+
+body{
+  background-color: silver;
+}
+
+p, span{
+  font-family: 'Nunito', sans-serif;
+}
+
