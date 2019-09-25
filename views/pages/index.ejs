@@ -10,7 +10,7 @@
   <main>
     <section>
       <% storedBooks.forEach(storedBook => { %>
-        <%- include('pages/books/detail', { storedBook: storedBook }); %>
+        <%- include('../pages/books/detail', { item: storedBook }); %>
       <% }) %>
       <!-- <h3>Search by Author or Title</h3>
       <form action='/searches' method='post'>
