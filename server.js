@@ -44,12 +44,6 @@ app.get('/', (req, res) => {
   // res.render('pages/index');
 });
 
-app.get('/books/:id', (req, res) => {
-  // 1. Unpack client query string data.
-  // 2. Read database for book by id.
-  // 3. Render book.
-});
-
 app.get('/error', (req, res) => {
   res.render('pages/error');
 });
@@ -63,7 +57,7 @@ app.get('/books/:books_id', (req, res)=> {
   client.query(sql, value)
     .then(sqlResults => {
       console.log(sqlResults.rows);
-      return res.render('pages/books/detail', {selectedBook: sqlResults.rows[0]});
+      return res.render('pages/books/detail', {item: sqlResults.rows[0]});
     })
     .catch(err => console.log(err));
 })
@@ -72,6 +66,17 @@ app.get('/searches', (req, res) => {
   // Render book searches page
   res.render('pages/searches/new');
 });
+
+app.get('/searches', (req, res) => {
+  //TODO: test storage of editted book
+  let {author, title, isbn, image_url, description, bookshelf} = req.body;
+  let sql = 'INSERT INTO tasks(title, description, category, contact, status) VALUES ($1, $2, $3, $4, $5, $6);';
+  let values = [author, title, isbn, image_url, description, bookshelf];
+
+  return client.query(sql, values)
+    .then(res.redirect('/'))
+    .catch(err => console.log(err))
+})
 
 app.post('/searches', (req, res) => {
   // Unpack client query string data
