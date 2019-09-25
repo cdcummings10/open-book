@@ -34,3 +34,7 @@ p, span{
   font-family: 'Nunito', sans-serif;
 }
 
+section {
+  background-color: lightgray;
+}
+
