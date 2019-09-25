@@ -1,18 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <%- include('../layout/head'); %>
+  <%- include('../../layout/head'); %>
 </head>
 <body>
   <header>
-    <%- include('../layout/header'); %>
+    <%- include('../../layout/header'); %>
   </header>
   <main>
     <section>
-      <% storedBooks.forEach(storedBook => { %>
-        <%- include('pages/books/detail', { storedBook: storedBook }); %>
-      <% }) %>
-      <!-- <h3>Search by Author or Title</h3>
+      <h3>Search by Author or Title</h3>
       <form action='/searches' method='post'>
         <input id="form" type="text" name="search" placeholder="Enter a Title or Author" required>
         <fieldset class="form">
@@ -30,7 +27,7 @@
         <button class="button" type="submit">
           Search the Google Books API
         </button>
-      </form> -->
+      </form>
     </section>
   </main>
 </body>

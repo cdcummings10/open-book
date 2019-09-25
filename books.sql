@@ -1,6 +1,5 @@
-DROP DATABASE book_app;
+DROP DATABASE IF EXISTS book_app;
 CREATE DATABASE book_app; 
-
 \c book_app;
 
 DROP TABLE IF EXISTS books;
