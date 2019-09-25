@@ -1,23 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Results</title>
+  <%- include('../../layout/head') %>
 </head>
 <body>
   <main>
     <h3>Search Results</h3>
     <% searchResults.forEach(item => { %>
-    <section>
-      <img src="<%= item.image %>">
-      <h5><%= item.title %></h5>
-      <h6><%= item.author %></h6>
-      <p><%= item.summary %></p>
-    </section>
+      <%- include('../books/detail', { item: item }); %>
     <% }) %>
   </main>
-  
 </body>
 </html>
