@@ -8,6 +8,12 @@
 require('dotenv').config();
 const express = require('express');
 
+//Database Calls
+const pg = require('pg');
+const client = new pg.Client(process.env.DATABASE_URL);
+client.connect();
+client.on('error', err => console.error(err));
+
 // Get local packages
 const api = require('./modules/api');
 
@@ -24,7 +30,13 @@ const PORT = process.env.PORT || 3001;
  */
 
 app.get('/', (req, res) => {
-  res.render('pages/index');
+  let sql = 'SELECT * FROM books;'
+  client.query(sql)
+    .then(sqlResults => {
+      //TODO: once front page is finished, EJS to front.
+      res.render('pages/index', {storedBooks: sqlResults.rows});
+    })
+    .catch(err => console.log(err))
 });
 
 //These 2 app.get render index and link the error page 
@@ -36,6 +48,19 @@ app.get('/error', (req, res) => {
   res.render('pages/error');
 });
 
+app.get('/books/:books_id', (req, res)=> {
+  //Shows detailed view of clicked book
+  //TODO: Waiting on front end to finish detail.ejs
+  let sql = 'SELECT * FROM books WHERE id=$1;';
+  let value = [req.params.books_id];
+  console.log(value);
+  client.query(sql, value)
+    .then(sqlResults => {
+      console.log(sqlResults.rows);
+      return res.render('pages/books/detail', {selectedBook: sqlResults.rows[0]});
+    })
+    .catch(err => console.log(err));
+})
 app.post('/searches', (req, res) => {
   // Unpack client query string data
   const search = req.body.search[0].split(' ').join('+');

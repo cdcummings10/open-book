@@ -23,10 +23,10 @@ function readAPI(queryString) {
   let url;
   switch (queryString.field) {
   case 'title':
-    url = `https://www.googleapis.com/books/v1/volumes?q=${queryString.search}+intitle:${queryString.field}`;
+    url = `https://www.googleapis.com/books/v1/volumes?q=intitle:${queryString.search}`;
     break;
   case 'author':
-    url = `https://www.googleapis.com/books/v1/volumes?q=${queryString.search}+inauthor:${queryString.field}`;
+    url = `https://www.googleapis.com/books/v1/volumes?q=inauthor:${queryString.search}`;
     break;
   default:
     // 500
