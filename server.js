@@ -68,6 +68,11 @@ app.get('/books/:books_id', (req, res)=> {
     .catch(err => console.log(err));
 })
 
+app.get('/searches', (req, res) => {
+  // Render book searches page
+  res.render('pages/searches/new');
+});
+
 app.post('/searches', (req, res) => {
   // Unpack client query string data
   const search = req.body.search[0].split(' ').join('+');
@@ -91,9 +96,7 @@ app.post('/searches', (req, res) => {
       });
 
       // Render data to client
-      res.render('pages/searches/show', {
-        searchResults: clientBooks
-      });
+      res.render('pages/searches/show', { searchResults: clientBooks });
     })
     .catch(err => console.error(err));
 });

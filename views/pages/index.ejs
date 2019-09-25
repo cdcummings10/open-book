@@ -1,33 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-<<<<<<< Updated upstream
-  <link rel="stylesheet" href="reset.css"/>
-  <link rel="stylesheet" href="base.css"/>
-  <link rel="stylesheet" href="icons.css"/>
-  <link rel="stylesheet" href="layout.css"/>
-  <link rel="stylesheet" href="modules.css"/>
-
-=======
-  <style>@import url('https://fonts.googleapis.com/css?family=Nunito&display=swap');</style>
-  <link rel="stylesheet" href="public/reset.css"/>
-  <link rel="stylesheet" href="public/base.css"/>
-  <link rel="stylesheet" href="public/icons.css"/>
-  <link rel="stylesheet" href="public/layout.css"/>
-  <link rel="stylesheet" href="public/modules.css"/>
->>>>>>> Stashed changes
-  <title>Document</title>
+  <%- include('../layout/head'); %>
 </head>
 <body>
   <header>
-    <h1>BEST BOOKS!</h1>
+    <%- include('../layout/header'); %>
   </header>
   <main>
     <section>
-      <h3>Search by Author or Title</h3>
+      <% storedBooks.forEach(storedBook => { %>
+        <%- include('pages/books/detail', { storedBook: storedBook }); %>
+      <% }) %>
+      <!-- <h3>Search by Author or Title</h3>
       <form action='/searches' method='post'>
         <input id="form" type="text" name="search" placeholder="Enter a Title or Author" required>
         <fieldset class="form">
@@ -45,7 +30,7 @@
         <button class="button" type="submit">
           Search the Google Books API
         </button>
-      </form>
+      </form> -->
     </section>
   </main>
 </body>
