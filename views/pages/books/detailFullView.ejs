@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <%- include('../../layout/head'); %>
+    <link rel="stylesheet" href="../../styles/reset.css"/>
+    <link rel="stylesheet" href="../../styles/base.css"/>
+    <link rel="stylesheet" href="../../styles/icons.css"/>
+    <link rel="stylesheet" href="../../styles/layout.css"/>
+    <link rel="stylesheet" href="../../styles/modules.css"/>
+  </head>
+  <body>
+    <header>
+      <%- include('../../layout/header'); %>
+    </header>
+    <section>
+      <img src="<%= item.image %>">
+      <h5><%= item.title %></h5>
+      <h6><%= item.author %></h6>
+      <p><%= item.summary %></p>
+      <p><%= item.isbn %></p>
+      <p><%= item.bookshelf %></p>
+    </section>
+  </body>
+</html>

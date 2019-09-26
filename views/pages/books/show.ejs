@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <%- include('../../layout/head') %>
+</head>
+<body>
+  <main>
+    <h3>Search Results</h3>
+    <% searchResults.forEach(item => { %>
+      <%- include('../books/detail', { item: item }); %>
+    <% }) %>
+  </main>
+</body>
+</html>

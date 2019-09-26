@@ -13,6 +13,7 @@ const pg = require('pg');
 const client = new pg.Client(process.env.DATABASE_URL);
 client.connect();
 client.on('error', err => console.error(err));
+const methodOverride = require('method-override');
 
 // Get local packages
 const api = require('./modules/api');
@@ -24,6 +25,16 @@ app.use(express.static('./public'));
 app.use(express.urlencoded({ extended: true }));
 
 const PORT = process.env.PORT || 3001;
+
+let currentSearch = [];
+
+app.use(methodOverride ((request, response) => {
+  if(request.body && typeof request.body === 'object' && '_method' in request.body){
+    let method = request.body._method;
+    delete request.body._method;
+    return method;
+  }
+}))
 
 /**
  * Routes
@@ -51,13 +62,14 @@ app.get('/error', (req, res) => {
 app.get('/books/:books_id', (req, res)=> {
   //Shows detailed view of clicked book
   //TODO: Waiting on front end to finish detail.ejs
+  console.log(req.params)
   let sql = 'SELECT * FROM books WHERE id=$1;';
   let value = [req.params.books_id];
   console.log(value);
   client.query(sql, value)
     .then(sqlResults => {
       console.log(sqlResults.rows);
-      return res.render('pages/books/detail', {item: sqlResults.rows[0]});
+      return res.render('pages/books/detailFullView', {item: sqlResults.rows[0]});
     })
     .catch(err => console.log(err));
 })
@@ -66,17 +78,6 @@ app.get('/searches', (req, res) => {
   // Render book searches page
   res.render('pages/searches/new');
 });
-
-app.get('/searches', (req, res) => {
-  //TODO: test storage of editted book
-  let {author, title, isbn, image_url, description, bookshelf} = req.body;
-  let sql = 'INSERT INTO tasks(title, description, category, contact, status) VALUES ($1, $2, $3, $4, $5, $6);';
-  let values = [author, title, isbn, image_url, description, bookshelf];
-
-  return client.query(sql, values)
-    .then(res.redirect('/'))
-    .catch(err => console.log(err))
-})
 
 app.post('/searches', (req, res) => {
   // Unpack client query string data
@@ -91,20 +92,38 @@ app.post('/searches', (req, res) => {
   api.readAPI(queryString)
     .then(books => {
       // Pack server data
-      const clientBooks = books.map(book => {
+      const clientBooks = books.map((book, i) => {
         return {
           author: book.author,
           image: book.imageLink,
           summary: book.description,
-          title: book.title
+          title: book.title,
+          id: i
         };
       });
-
+      currentSearch = clientBooks;
       // Render data to client
       res.render('pages/searches/show', { searchResults: clientBooks });
     })
     .catch(err => console.error(err));
 });
+
+app.get('/searches/:search_id', (req, res) => {
+  res.render('pages/books/detailSearch', { item: currentSearch[req.params.search_id] });
+})
+
+app.put('/update/:search_id', (req, res) => {
+  console.log(req.body);
+  // TODO: test storage of editted book
+  let {author, title, isbn, image_url, description, bookshelf} = req.body;
+  image_url = currentSearch[req.params.search_id].image_url
+  let sql = 'INSERT INTO books(author, title, isbn, image_url, description, bookshelf) VALUES ($1, $2, $3, $4, $5, $6);';
+  let values = [author, title, isbn, image_url, description, bookshelf];
+  
+  return client.query(sql, values)
+    .then(res.redirect('/'))
+    .catch(err => console.log(err))
+})
 
 /**
  * Port

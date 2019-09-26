@@ -6,6 +6,18 @@ header{
   background-color: black;
 }
 
+a {
+  text-decoration: none;
+  color: ivory;
+  background-color: rgb(87, 87, 87);
+  padding: 10px;
+  margin: 10px;
+}
+
+a:hover{
+  background-color: darkgray;
+}
+
 h1{
   font-size: 3em;
   color: white;
@@ -13,6 +25,7 @@ h1{
 
 h3{
   font-size: 25px;
+  line-height: 25px;
   background-color: gray;
   color: white;
 
