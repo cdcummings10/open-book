@@ -34,7 +34,7 @@ app.use(methodOverride ((request, response) => {
     delete request.body._method;
     return method;
   }
- }))
+}))
 
 /**
  * Routes
@@ -79,21 +79,6 @@ app.get('/searches', (req, res) => {
   res.render('pages/searches/new');
 });
 
-app.get('/searches', (req, res) => {
-  //TODO: test storage of editted book
-  let {author, title, isbn, image_url, description, bookshelf} = req.body;
-  let sql = 'INSERT INTO tasks(title, description, category, contact, status) VALUES ($1, $2, $3, $4, $5, $6);';
-  let values = [author, title, isbn, image_url, description, bookshelf];
-
-  return client.query(sql, values)
-    .then(res.redirect('/'))
-    .catch(err => console.log(err))
-})
-
-app.post('/edit'), (req, res) => {
-  console.log(req);
-}
-
 app.post('/searches', (req, res) => {
   // Unpack client query string data
   const search = req.body.search[0].split(' ').join('+');
@@ -125,6 +110,19 @@ app.post('/searches', (req, res) => {
 
 app.get('/searches/:search_id', (req, res) => {
   res.render('pages/books/detailSearch', { item: currentSearch[req.params.search_id] });
+})
+
+app.put('/update/:search_id', (req, res) => {
+  console.log(req.body);
+  // TODO: test storage of editted book
+  let {author, title, isbn, image_url, description, bookshelf} = req.body;
+  image_url = currentSearch[req.params.search_id].image_url
+  let sql = 'INSERT INTO books(author, title, isbn, image_url, description, bookshelf) VALUES ($1, $2, $3, $4, $5, $6);';
+  let values = [author, title, isbn, image_url, description, bookshelf];
+  
+  return client.query(sql, values)
+    .then(res.redirect('/'))
+    .catch(err => console.log(err))
 })
 
 /**

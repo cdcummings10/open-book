@@ -7,7 +7,8 @@
     <header>
       <%- include('../../layout/header'); %>
     </header>
-    <form id="edit-book" action="/edit" method="post">
+    <form id="edit-book" action="<%=`/update/${item.id}`%>" method="post">
+      <input type="hidden" name="_method" value="put">
       <input type="text" name="title" placeholder="<%= item.title %>">
       <input type="text" name="author" placeholder="<%=item.author %>">
       <textarea type="text" name="summary" placeholder="<%=item.summary %>" cols="30" rows="10"></textarea>
