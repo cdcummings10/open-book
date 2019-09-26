@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <%- include('../../layout/head'); %>
+  </head>
+  <body>
+    <header>
+      <%- include('../../layout/header'); %>
+    </header>
+    <form id="edit-book" action="/edit" method="post">
+      <input type="text" name="title" placeholder="<%= item.title %>">
+      <input type="text" name="author" placeholder="<%=item.author %>">
+      <textarea type="text" name="summary" placeholder="<%=item.summary %>" cols="30" rows="10"></textarea>
+      <input type="text" name="isbn" placeholder="<%=item.isbn %>">
+      <input type="text" name="bookshelf" placeholder="Add a bookshelf">
+      <button type="submit">Finish and Add Book</button>
+    </form>
+    <section>
+      <img src="<%= item.image %>">
+      <h5><%= item.title %></h5>
+      <h6><%= item.author %></h6>
+      <p><%= item.summary %></p>
+      <p><%= item.isbn %></p>
+    </section>
+  </body>
+</html>

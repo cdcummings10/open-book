@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <%- include('../../layout/head'); %>
+  </head>
+  <body>
+    <header>
+      <%- include('../../layout/header'); %>
+    </header>
+    <section>
+      <img src="<%= item.image %>">
+      <h5><%= item.title %></h5>
+      <h6><%= item.author %></h6>
+      <p><%= item.summary %></p>
+      <p><%= item.isbn %></p>
+      <p><%= item.bookshelf %></p>
+    </section>
+  </body>
+</html>

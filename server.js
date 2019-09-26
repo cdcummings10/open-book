@@ -57,7 +57,7 @@ app.get('/books/:books_id', (req, res)=> {
   client.query(sql, value)
     .then(sqlResults => {
       console.log(sqlResults.rows);
-      return res.render('pages/books/detail', {item: sqlResults.rows[0]});
+      return res.render('pages/books/detailFullView', {item: sqlResults.rows[0]});
     })
     .catch(err => console.log(err));
 })
