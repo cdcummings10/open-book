@@ -13,6 +13,7 @@ const pg = require('pg');
 const client = new pg.Client(process.env.DATABASE_URL);
 client.connect();
 client.on('error', err => console.error(err));
+const methodOverride = require('method-override');
 
 // Get local packages
 const api = require('./modules/api');
@@ -26,6 +27,14 @@ app.use(express.urlencoded({ extended: true }));
 const PORT = process.env.PORT || 3001;
 
 let currentSearch = [];
+
+app.use(methodOverride ((request, response) => {
+  if(request.body && typeof request.body === 'object' && '_method' in request.body){
+    let method = request.body._method;
+    delete request.body._method;
+    return method;
+  }
+ }))
 
 /**
  * Routes
@@ -81,7 +90,9 @@ app.get('/searches', (req, res) => {
     .catch(err => console.log(err))
 })
 
-
+app.post('/edit'), (req, res) => {
+  console.log(req);
+}
 
 app.post('/searches', (req, res) => {
   // Unpack client query string data
