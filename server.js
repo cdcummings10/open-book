@@ -114,11 +114,13 @@ app.get('/searches/:search_id', (req, res) => {
 
 app.put('/update/:search_id', (req, res) => {
   console.log(req.body);
-  // TODO: test storage of editted book
-  let {author, title, isbn, image_url, description, bookshelf} = req.body;
-  image_url = currentSearch[req.params.search_id].image_url
+  // TODO: test storage of edited book
+  let {author, title, isbn, image_url, summary, bookshelf} = req.body;
+  image_url = currentSearch[req.params.search_id].image
+  console.log(currentSearch);
+  console.log(image_url);
   let sql = 'INSERT INTO books(author, title, isbn, image_url, description, bookshelf) VALUES ($1, $2, $3, $4, $5, $6);';
-  let values = [author, title, isbn, image_url, description, bookshelf];
+  let values = [author, title, isbn, image_url, summary, bookshelf];
   
   return client.query(sql, values)
     .then(res.redirect('/'))
