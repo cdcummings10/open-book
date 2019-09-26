@@ -53,6 +53,7 @@ app.get('/error', (req, res) => {
 app.get('/books/:books_id', (req, res)=> {
   //Shows detailed view of clicked book
   //TODO: Waiting on front end to finish detail.ejs
+  console.log(req.params)
   let sql = 'SELECT * FROM books WHERE id=$1;';
   let value = [req.params.books_id];
   console.log(value);
@@ -80,9 +81,7 @@ app.get('/searches', (req, res) => {
     .catch(err => console.log(err))
 })
 
-app.get('/searches/:search_id', (req, res) => {
-  res.render('pages/books/detailSearch', {item: currentSearch});
-})
+
 
 app.post('/searches', (req, res) => {
   // Unpack client query string data
@@ -107,12 +106,15 @@ app.post('/searches', (req, res) => {
         };
       });
       currentSearch = clientBooks;
-      console.log(currentSearch);
       // Render data to client
       res.render('pages/searches/show', { searchResults: clientBooks });
     })
     .catch(err => console.error(err));
 });
+
+app.get('/searches/:search_id', (req, res) => {
+  res.render('pages/books/detailSearch', { item: currentSearch[req.params.search_id] });
+})
 
 /**
  * Port
