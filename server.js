@@ -25,6 +25,8 @@ app.use(express.urlencoded({ extended: true }));
 
 const PORT = process.env.PORT || 3001;
 
+let currentSearch = [];
+
 /**
  * Routes
  */
@@ -78,6 +80,10 @@ app.get('/searches', (req, res) => {
     .catch(err => console.log(err))
 })
 
+app.get('/searches/:search_id', (req, res) => {
+  res.render('pages/books/detailSearch', {item: currentSearch});
+})
+
 app.post('/searches', (req, res) => {
   // Unpack client query string data
   const search = req.body.search[0].split(' ').join('+');
@@ -91,15 +97,17 @@ app.post('/searches', (req, res) => {
   api.readAPI(queryString)
     .then(books => {
       // Pack server data
-      const clientBooks = books.map(book => {
+      const clientBooks = books.map((book, i) => {
         return {
           author: book.author,
           image: book.imageLink,
           summary: book.description,
-          title: book.title
+          title: book.title,
+          id: i
         };
       });
-
+      currentSearch = clientBooks;
+      console.log(currentSearch);
       // Render data to client
       res.render('pages/searches/show', { searchResults: clientBooks });
     })
