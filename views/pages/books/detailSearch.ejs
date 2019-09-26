@@ -2,19 +2,25 @@
 <html lang="en">
   <head>
     <%- include('../../layout/head'); %>
+    <link rel="stylesheet" href="../../styles/reset.css"/>
+    <link rel="stylesheet" href="../../styles/base.css"/>
+    <link rel="stylesheet" href="../../styles/icons.css"/>
+    <link rel="stylesheet" href="../../styles/layout.css"/>
+    <link rel="stylesheet" href="../../styles/modules.css"/>
   </head>
   <body>
     <header>
       <%- include('../../layout/header'); %>
     </header>
-    <form id="edit-book" action="<%=`/update/${item.id}`%>" method="post">
+    <form id="form" action="<%=`/update/${item.id}`%>" method="post">
+      <legend>Update Book</legend>
       <input type="hidden" name="_method" value="put">
       <input type="text" name="title" placeholder="<%= item.title %>">
       <input type="text" name="author" placeholder="<%=item.author %>">
       <textarea type="text" name="summary" placeholder="<%=item.summary %>" cols="30" rows="10"></textarea>
       <input type="text" name="isbn" placeholder="<%=item.isbn %>">
       <input type="text" name="bookshelf" placeholder="Add a bookshelf">
-      <button type="submit">Finish and Add Book</button>
+      <button type="submit">Finish and Save Book to Collection</button>
     </form>
     <section>
       <img src="<%= item.image %>">
