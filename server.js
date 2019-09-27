@@ -98,7 +98,7 @@ app.put('/books/:books_id/update', (req, res) => {
   // Update database
   db.updateDBBooksByBook(clientBook)
     .then(() => {
-      res.redirect('/books/:books_id');
+      res.redirect('/');
     })
     .catch(err => console.error(err));
 });
