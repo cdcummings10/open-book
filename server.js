@@ -56,8 +56,10 @@ app.get('/', (req, res) => {
 
   db.readDBBooks()
     .then(sqlResults => {
-      //TODO: once front page is finished, EJS to front.
-      res.render('pages/index', { storedBooks: sqlResults.rows });
+      res.render('pages/index', {
+        storedBooks: sqlResults.rows,
+        storedBooksCount: sqlResults.rows.length
+      });
     })
     .catch(err => console.error(err));
 });
@@ -73,9 +75,18 @@ app.get('/books/:books_id', (req, res)=> {
   const id = req.params.books_id;
 
   // Query database
-  db.readDBBooksById(id)
+  Promise.all([
+    db.readDBBooksById(id),
+    db.readDBBooksForBookshelves()
+  ])
     .then(sqlResults => {
-      return res.render('pages/books/detailFullView', {item: sqlResults.rows[0]});
+      res.render('pages/books/detailFullView', {
+        item: sqlResults[0].rows[0],
+        bookshelves: sqlResults[1].rows.reduce((accumulator, value) => {
+          accumulator.push(value.bookshelf);
+          return accumulator;
+        }, [])
+      });
     })
     .catch(err => console.error(err));
 });
@@ -112,7 +123,7 @@ app.delete('/books/:books_id/delete', (req, res) => {
     .then(() => {
       res.redirect('/');
     })
-    .catch(err => console.error(err));  
+    .catch(err => console.error(err));
 });
 
 app.get('/searches', (req, res) => {
