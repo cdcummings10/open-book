@@ -8,7 +8,7 @@
     <%- include('../layout/header'); %>
   </header>
   <main>
-    <h3>Collection Count: <%= storedBooks.count %></h3>
+    <h3>Collection Count: <%= storedBooksCount %></h3>
       <% storedBooks.forEach(storedBook => { %>
         <%- include('../pages/books/detailStored', { item: storedBook }); %>
       <% }) %>
