@@ -25,14 +25,24 @@
       </form>
     </section>
     <button class="toggleForm">Show/Hide Update Form</button>
-    <form id="form" class="hidden" action="<%=`/books/${item.id}/update`%>" method="post">
+    <form id="update" class="hidden" action="<%=`/books/${item.id}/update`%>" method="post">
       <legend>Update Book</legend>
       <input type="hidden" name="_method" value="put">
-      <input type="text" name="title" placeholder="<%= item.title %>">
-      <input type="text" name="author" placeholder="<%=item.author %>">
-      <textarea type="text" name="summary" placeholder="<%=item.description %>" cols="30" rows="10"></textarea>
-      <input type="text" name="isbn" placeholder="<%=item.isbn %>">
-      <input type="text" name="bookshelf" placeholder="Add a bookshelf">
+      <input type="text" name="title" value="<%= item.title %>">
+      <input type="text" name="author" value="<%=item.author %>">
+      <textarea type="text" name="summary" cols="30" rows="10"> <%=item.description %></textarea>
+      <input type="text" name="isbn" value="<%=item.isbn %>">
+      <div class="clearfloat"></div>
+      <label for ="selectBookshelf">Choose a bookshelf:</label>
+      <select id="bookshelf">
+        <option>Bookshelves</option>
+        <% bookshelves.forEach(bookshelf => { %>
+          <option value="<%=bookshelf %>"><%=bookshelf %></option>
+        <% }) %>
+      </select>
+      <div class="clearfloat"></div>
+      <input type="text" id="shelf" placeholder="Add new bookshelf">
+      <button id="newShelfButton">Add new Bookshelf</button>
       <button type="submit">Finish and Save Book to Collection</button>
     </form>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>

@@ -8,7 +8,7 @@
     <%- include('../layout/header'); %>
   </header>
   <main>
-    <section>
+    <h3>Collection Count: <%= storedBooks.count %></h3>
       <% storedBooks.forEach(storedBook => { %>
         <%- include('../pages/books/detailStored', { item: storedBook }); %>
       <% }) %>
@@ -31,7 +31,6 @@
           Search the Google Books API
         </button>
       </form> -->
-    </section>
   </main>
 </body>
 </html>

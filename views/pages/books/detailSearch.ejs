@@ -20,13 +20,13 @@
       <p><%= item.isbn %></p>
     </section>
     <button class="toggleForm">Show/Hide Update Form</button>
-    <form id="form" class="hidden" action="<%=`/update/${item.id}`%>" method="post">
+    <form id="update" class="hidden" action="<%=`/update/${item.id}`%>" method="post">
       <legend>Update Book</legend>
       <input type="hidden" name="_method" value="put">
-      <input type="text" name="title" placeholder="<%= item.title %>">
-      <input type="text" name="author" placeholder="<%=item.author %>">
-      <textarea type="text" name="summary" placeholder="<%=item.summary %>" cols="30" rows="10"></textarea>
-      <input type="text" name="isbn" placeholder="<%=item.isbn %>">
+      <input type="text" name="title" value="<%= item.title %>">
+      <input type="text" name="author" value="<%=item.author %>">
+      <textarea type="text" name="summary" cols="30" rows="10"><%=item.summary %></textarea>
+      <input type="text" name="isbn" value="<%=item.isbn %>">
       <input type="text" name="bookshelf" placeholder="Add a bookshelf">
       <button type="submit">Finish and Save Book to Collection</button>
     </form>
