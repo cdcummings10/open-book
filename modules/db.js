@@ -35,6 +35,11 @@ DB.prototype.readDBBooksById = function(id) {
   return this.pgClient.query(sql, qValues);
 };
 
+DB.prototype.readDBBooksForBookshelves = function() {
+  const sql = 'SELECT DISTINCT bookshelf FROM books;';
+  return this.pgClient.query(sql);
+}
+
 // Update
 
 DB.prototype.updateDBBooksByBook = function(book) {
