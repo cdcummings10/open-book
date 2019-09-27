@@ -62,10 +62,10 @@ app.get('/books/:books_id', (req, res)=> {
     .catch(err => console.log(err));
 })
 
-app.get('/searches', (req, res) => {
-  // Render book searches page
-  res.render('pages/searches/new');
-});
+// app.get('/searches', (req, res) => {
+//   // Render book searches page
+//   res.render('pages/searches/new');
+// });
 
 app.get('/searches', (req, res) => {
   //TODO: test storage of editted book
