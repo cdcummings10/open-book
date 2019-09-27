@@ -11,11 +11,11 @@ const express = require('express');
 //Database Calls
 const pg = require('pg');
 const client = new pg.Client(process.env.DATABASE_URL);
-client.connect();
 client.on('error', err => console.error(err));
 const methodOverride = require('method-override');
 
 // Get local packages
+const DB = require('./modules/db');
 const api = require('./modules/api');
 
 // Set packages
@@ -26,7 +26,17 @@ app.use(express.urlencoded({ extended: true }));
 
 const PORT = process.env.PORT || 3001;
 
+const db = new DB(client);
+
+/**
+ * Globals
+ */
+
 let currentSearch = [];
+
+/**
+ * Middleware
+ */
 
 app.use(methodOverride ((request, response) => {
   if(request.body && typeof request.body === 'object' && '_method' in request.body){
@@ -160,4 +170,6 @@ app.put('/update/:search_id', (req, res) => {
  * Port
  */
 
-app.listen(PORT, () => console.log(`listening on ${PORT}`));
+client.connect(() =>{
+  app.listen(PORT, () => console.log(`listening on ${PORT}`));
+});
