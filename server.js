@@ -73,7 +73,7 @@ app.get('/books/:books_id', (req, res)=> {
   const id = req.params.books_id;
 
   // Query database
-  db.readDBBookById(id)
+  db.readDBBooksById(id)
     .then(sqlResults => {
       return res.render('pages/books/detailFullView', {item: sqlResults.rows[0]});
     })
