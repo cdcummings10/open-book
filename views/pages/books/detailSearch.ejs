@@ -12,7 +12,15 @@
     <header>
       <%- include('../../layout/header'); %>
     </header>
-    <form id="form" action="<%=`/update/${item.id}`%>" method="post">
+    <section>
+      <img src="<%= item.image %>">
+      <h5><%= item.title %></h5>
+      <h6><%= item.author %></h6>
+      <p><%= item.summary %></p>
+      <p><%= item.isbn %></p>
+    </section>
+    <button class="toggleForm">Show/Hide Update Form</button>
+    <form id="form" class="hidden" action="<%=`/update/${item.id}`%>" method="post">
       <legend>Update Book</legend>
       <input type="hidden" name="_method" value="put">
       <input type="text" name="title" placeholder="<%= item.title %>">
@@ -22,12 +30,7 @@
       <input type="text" name="bookshelf" placeholder="Add a bookshelf">
       <button type="submit">Finish and Save Book to Collection</button>
     </form>
-    <section>
-      <img src="<%= item.image %>">
-      <h5><%= item.title %></h5>
-      <h6><%= item.author %></h6>
-      <p><%= item.summary %></p>
-      <p><%= item.isbn %></p>
-    </section>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script type="text/javascript" src="../../app.js"></script>
   </body>
 </html>
