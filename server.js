@@ -89,6 +89,20 @@ app.put('/books/:books_id/update', (req, res) => {
     .catch(err => console.error(err));
 });
 
+app.delete('/books/:books_id/delete', (req, res) => {
+  // Unpack cliend data
+  const id = req.path.split('/')[2];
+
+  // Delete book from table
+  const sql = 'DELETE FROM books WHERE id=$1;';
+  const qValues = [id];
+  client.query(sql, qValues)
+    .then(() => {
+      res.redirect('/');
+    })
+    .catch(err => console.error(err));
+});
+
 app.get('/searches', (req, res) => {
   // Render book searches page
   res.render('pages/searches/new');
