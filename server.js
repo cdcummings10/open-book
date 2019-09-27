@@ -11,11 +11,11 @@ const express = require('express');
 //Database Calls
 const pg = require('pg');
 const client = new pg.Client(process.env.DATABASE_URL);
-client.connect();
 client.on('error', err => console.error(err));
 const methodOverride = require('method-override');
 
 // Get local packages
+const DB = require('./modules/db');
 const api = require('./modules/api');
 
 // Set packages
@@ -26,7 +26,17 @@ app.use(express.urlencoded({ extended: true }));
 
 const PORT = process.env.PORT || 3001;
 
+const db = new DB(client);
+
+/**
+ * Globals
+ */
+
 let currentSearch = [];
+
+/**
+ * Middleware
+ */
 
 app.use(methodOverride ((request, response) => {
   if(request.body && typeof request.body === 'object' && '_method' in request.body){
@@ -44,15 +54,12 @@ app.get('/', (req, res) => {
   // 1. Get books from database.
   // 2. Render books to page.
 
-  let sql = 'SELECT * FROM books;'
-  client.query(sql)
+  db.readDBBooks()
     .then(sqlResults => {
       //TODO: once front page is finished, EJS to front.
-      res.render('pages/index', {storedBooks: sqlResults.rows});
+      res.render('pages/index', { storedBooks: sqlResults.rows });
     })
-    .catch(err => console.log(err))
-
-  // res.render('pages/index');
+    .catch(err => console.error(err));
 });
 
 app.get('/error', (req, res) => {
@@ -60,29 +67,36 @@ app.get('/error', (req, res) => {
 });
 
 app.get('/books/:books_id', (req, res)=> {
-  //Shows detailed view of clicked book
-  //TODO: Waiting on front end to finish detail.ejs
-  console.log(req.params)
-  let sql = 'SELECT * FROM books WHERE id=$1;';
-  let value = [req.params.books_id];
-  console.log(value);
-  client.query(sql, value)
+  // Shows detailed view of clicked book
+
+  // Unpack clien data
+  const id = req.params.books_id;
+
+  // Query database
+  db.readDBBooksById(id)
     .then(sqlResults => {
-      console.log(sqlResults.rows);
       return res.render('pages/books/detailFullView', {item: sqlResults.rows[0]});
     })
-    .catch(err => console.log(err));
-})
+    .catch(err => console.error(err));
+});
 
 app.put('/books/:books_id/update', (req, res) => {
-  // Unpack client data
+  // Unpack client data for server
   const id = req.path.split('/')[2];
   const {title, author, summary, isbn, bookshelf} = req.body;
 
+  // Pack server data for db
+  const clientBook = {
+    id: id,
+    title: title,
+    author: author,
+    summary: summary,
+    isbn: isbn,
+    bookshelf: bookshelf
+  }
+
   // Update database
-  const sql = 'UPDATE books SET author=$1, title=$2, isbn=$3, description=$4, bookshelf=$5 WHERE id=$6;';
-  const qValues = [author, title, isbn, summary, bookshelf, id];
-  client.query(sql, qValues)
+  db.updateDBBooksByBook(clientBook)
     .then(() => {
       res.redirect('/');
     })
@@ -93,14 +107,12 @@ app.delete('/books/:books_id/delete', (req, res) => {
   // Unpack cliend data
   const id = req.path.split('/')[2];
 
-  // Delete book from table
-  const sql = 'DELETE FROM books WHERE id=$1;';
-  const qValues = [id];
-  client.query(sql, qValues)
+  // Delete from database
+  db.deleteDBBooksById(id)
     .then(() => {
       res.redirect('/');
     })
-    .catch(err => console.error(err));
+    .catch(err => console.error(err));  
 });
 
 app.get('/searches', (req, res) => {
@@ -142,22 +154,31 @@ app.get('/searches/:search_id', (req, res) => {
 })
 
 app.put('/update/:search_id', (req, res) => {
-  console.log(req.body);
-  // TODO: test storage of edited book
+  // Unpack client data for server
   let {author, title, isbn, image_url, summary, bookshelf} = req.body;
-  image_url = currentSearch[req.params.search_id].image
-  console.log(currentSearch);
-  console.log(image_url);
-  let sql = 'INSERT INTO books(author, title, isbn, image_url, description, bookshelf) VALUES ($1, $2, $3, $4, $5, $6);';
-  let values = [author, title, isbn, image_url, summary, bookshelf];
+  image_url = currentSearch[req.params.search_id].image;
 
-  return client.query(sql, values)
-    .then(res.redirect('/'))
-    .catch(err => console.log(err))
+  // Pack server data for database
+  const book = {
+    author: author,
+    title: title,
+    isbn: isbn,
+    image_url: image_url,
+    summary: summary,
+    bookshelf: bookshelf
+  };
+
+  db.createDBBooksByBook(book)
+    .then(() => {
+      res.redirect('/')
+    })
+    .catch(err => console.error(err));
 })
 
 /**
  * Port
  */
 
-app.listen(PORT, () => console.log(`listening on ${PORT}`));
+client.connect(() =>{
+  app.listen(PORT, () => console.log(`listening on ${PORT}`));
+});
