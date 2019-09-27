@@ -84,7 +84,7 @@ app.put('/books/:books_id/update', (req, res) => {
   const qValues = [author, title, isbn, summary, bookshelf, id];
   client.query(sql, qValues)
     .then(() => {
-      res.redirect('/books/:books_id');
+      res.redirect('/');
     })
     .catch(err => console.error(err));
 });
