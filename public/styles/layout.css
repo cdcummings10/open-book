@@ -94,7 +94,7 @@ h2 {
 }
 
 .hidden {
-  visibility: collapse;
+  visibility: hidden;
 }
 
 /* font-family: 'Nunito', sans-serif; */
