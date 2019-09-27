@@ -74,6 +74,35 @@ app.get('/books/:books_id', (req, res)=> {
     .catch(err => console.log(err));
 })
 
+app.put('/books/:books_id/update', (req, res) => {
+  // Unpack client data
+  const id = req.path.split('/')[2];
+  const {title, author, summary, isbn, bookshelf} = req.body;
+
+  // Update database
+  const sql = 'UPDATE books SET author=$1, title=$2, isbn=$3, description=$4, bookshelf=$5 WHERE id=$6;';
+  const qValues = [author, title, isbn, summary, bookshelf, id];
+  client.query(sql, qValues)
+    .then(() => {
+      res.redirect('/books/:books_id');
+    })
+    .catch(err => console.error(err));
+});
+
+app.delete('/books/:books_id/delete', (req, res) => {
+  // Unpack cliend data
+  const id = req.path.split('/')[2];
+
+  // Delete book from table
+  const sql = 'DELETE FROM books WHERE id=$1;';
+  const qValues = [id];
+  client.query(sql, qValues)
+    .then(() => {
+      res.redirect('/');
+    })
+    .catch(err => console.error(err));
+});
+
 app.get('/searches', (req, res) => {
   // Render book searches page
   res.render('pages/searches/new');
@@ -114,12 +143,14 @@ app.get('/searches/:search_id', (req, res) => {
 
 app.put('/update/:search_id', (req, res) => {
   console.log(req.body);
-  // TODO: test storage of editted book
-  let {author, title, isbn, image_url, description, bookshelf} = req.body;
-  image_url = currentSearch[req.params.search_id].image_url
+  // TODO: test storage of edited book
+  let {author, title, isbn, image_url, summary, bookshelf} = req.body;
+  image_url = currentSearch[req.params.search_id].image
+  console.log(currentSearch);
+  console.log(image_url);
   let sql = 'INSERT INTO books(author, title, isbn, image_url, description, bookshelf) VALUES ($1, $2, $3, $4, $5, $6);';
-  let values = [author, title, isbn, image_url, description, bookshelf];
-  
+  let values = [author, title, isbn, image_url, summary, bookshelf];
+
   return client.query(sql, values)
     .then(res.redirect('/'))
     .catch(err => console.log(err))
